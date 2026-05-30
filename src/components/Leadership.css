@@ -1,0 +1,94 @@
+.leadership {
+  background-color: var(--color-bg-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.leadership::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100%;
+  background: radial-gradient(circle at right center, rgba(30, 87, 140, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.leadership-text {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.leadership-profile {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.profile-image {
+  height: 350px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  filter: grayscale(20%);
+}
+
+.profile-info {
+  padding: 2.5rem;
+  background: var(--color-bg-charcoal);
+}
+
+.profile-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.profile-bio {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(177, 154, 107, 0.3);
+  color: var(--color-accent-gold);
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: var(--color-accent-gold);
+  color: var(--color-bg-dark);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 992px) {
+  .leadership-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}

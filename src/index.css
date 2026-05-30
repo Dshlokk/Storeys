@@ -1,0 +1,144 @@
+:root {
+  /* Charcoal & Gold Color Palette */
+  --color-primary-blue: #232f3e;     /* Charcoal Blue */
+  --color-secondary-blue: #3b4b5c;   /* Lighter Charcoal Blue */
+  --color-accent-gold: #b19a6b;      /* Charcoal Gold */
+  --color-accent-gold-light: #d1c2a4;/* Light Charcoal Gold */
+  --color-accent-gold-dark: #8e7b56; /* Dark Charcoal Gold */
+  
+  --color-bg-dark: #161b22;         /* Very dark charcoal */
+  --color-bg-charcoal: #1f242c;     /* Base charcoal */
+  --color-bg-light: #ffffff;
+  --color-bg-offwhite: #f8f9fa;
+  
+  --color-text-light: #f0f2f5;
+  --color-text-muted: #8b95a1;
+  --color-text-dark: #161b22;
+  
+  /* Typography */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, a, button, input, select, textarea {
+  cursor: url('/house-cursor.svg') 16 16, auto !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+
+p {
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.text-gold {
+  color: var(--color-accent-gold);
+}
+
+.text-blue {
+  color: var(--color-secondary-blue);
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+section {
+  padding: 100px 0;
+  position: relative;
+}
+
+/* Chromatic Gradients */
+.gradient-gold {
+  background: linear-gradient(135deg, var(--color-accent-gold-light) 0%, var(--color-accent-gold) 50%, var(--color-accent-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-blue-bg {
+  background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-primary-blue) 100%);
+}
+
+.gradient-gold-bg {
+  background: linear-gradient(135deg, var(--color-accent-gold-light) 0%, var(--color-accent-gold) 50%, var(--color-accent-gold-dark) 100%);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 2px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-accent-gold-light) 0%, var(--color-accent-gold) 50%, var(--color-accent-gold-dark) 100%);
+  color: var(--color-bg-dark);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(177, 154, 107, 0.2);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-accent-gold);
+  border: 1px solid var(--color-accent-gold);
+}
+
+.btn-outline:hover {
+  background: rgba(177, 154, 107, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(31, 36, 44, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
