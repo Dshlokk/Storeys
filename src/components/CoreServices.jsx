@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { Target, TrendingUp, Globe, Building2, Briefcase, LayoutDashboard } from 'lucide-react';
 import './CoreServices.css';
 
@@ -56,43 +55,70 @@ const services = [
 ];
 
 const CoreServices = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
+        staggerChildren: 0.1,
+        delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] } 
+    }
   };
 
   return (
     <section id="services" className="services">
+      <div className="corner-accent corner-tr"></div>
+      <div className="architectural-line" style={{ bottom: '0' }}></div>
+      
       <div className="container">
         <div className="section-header text-center">
-          <h4 className="section-subtitle text-gold">Our Expertise</h4>
-          <h2 className="section-title">Core <span className="gradient-gold">Services</span></h2>
+          <motion.h4 
+            className="section-subtitle text-gold"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Our Expertise
+          </motion.h4>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Core <span className="gradient-gold">Services</span>
+          </motion.h2>
         </div>
 
         <motion.div 
           className="services-grid"
-          ref={ref}
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
           {services.map((service) => (
-            <motion.div key={service.id} className="service-card glass" variants={itemVariants}>
+            <motion.div 
+              key={service.id} 
+              className="service-card glass" 
+              variants={itemVariants}
+              whileHover={{ 
+                y: -10, 
+                backgroundColor: 'rgba(197, 160, 89, 0.03)',
+                borderColor: 'rgba(197, 160, 89, 0.4)'
+              }}
+            >
               <div className="service-header">
                 <span className="service-number gradient-gold">{service.id}.</span>
                 <div className="service-icon-wrapper">

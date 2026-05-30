@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { MapPin, Phone, Mail, MessageCircle, Calendar } from 'lucide-react';
+import { MessageCircle, Calendar, Mail, ArrowRight } from 'lucide-react';
 import './Contact.css';
 
 const Contact = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -50,13 +44,17 @@ const Contact = () => {
 
   return (
     <section id="contact" className="contact gradient-blue-bg">
+      <div className="architectural-line" style={{ top: '0' }}></div>
+      <div className="corner-accent corner-tl"></div>
+      
       <div className="container">
-        <div className="contact-grid" ref={ref}>
+        <div className="contact-grid">
           <motion.div 
             className="contact-info"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
           >
             <h4 className="section-subtitle text-gold">Get in Touch</h4>
             <h2 className="section-title">
@@ -65,38 +63,40 @@ const Contact = () => {
             </h2>
             
             <div className="contact-methods">
-              <a href="#" className="contact-method-card glass">
-                <MessageCircle size={24} className="text-gold" />
-                <div>
-                  <h5>WhatsApp Strategy Desk</h5>
-                  <p>Connect instantly with our team</p>
-                </div>
-              </a>
-              
-              <a href="#" className="contact-method-card glass">
-                <Calendar size={24} className="text-gold" />
-                <div>
-                  <h5>Schedule Consultation</h5>
-                  <p>Book a strategic growth meeting</p>
-                </div>
-              </a>
-              
-              <a href="#" className="contact-method-card glass">
-                <Mail size={24} className="text-gold" />
-                <div>
-                  <h5>Company Profile</h5>
-                  <p>Request our detailed capabilities</p>
-                </div>
-              </a>
+              {[
+                { icon: <MessageCircle size={24} />, title: "WhatsApp Strategy Desk", desc: "Connect instantly with our team" },
+                { icon: <Calendar size={24} />, title: "Schedule Consultation", desc: "Book a strategic growth meeting" },
+                { icon: <Mail size={24} />, title: "Company Profile", desc: "Request our detailed capabilities" }
+              ].map((method, idx) => (
+                <motion.a 
+                  key={idx}
+                  href="#" 
+                  className="contact-method-card glass"
+                  whileHover={{ x: 10, borderColor: 'var(--color-accent-gold)' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 * idx }}
+                >
+                  <div className="method-icon text-gold">{method.icon}</div>
+                  <div>
+                    <h5>{method.title}</h5>
+                    <p>{method.desc}</p>
+                  </div>
+                  <ArrowRight size={16} className="method-arrow text-gold" />
+                </motion.a>
+              ))}
             </div>
           </motion.div>
           
           <motion.div 
             className="contact-form-wrapper glass"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
+            <div className="corner-accent corner-tr" style={{ top: '-1px', right: '-1px' }}></div>
             <h3 className="form-title">Strategic Inquiry</h3>
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
@@ -145,12 +145,18 @@ const Contact = () => {
                 </select>
               </div>
               
-              <button type="submit" className="btn btn-primary w-100" disabled={status === 'submitting'}>
+              <motion.button 
+                type="submit" 
+                className="btn btn-primary w-100" 
+                disabled={status === 'submitting'}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 {status === 'submitting' ? 'Sending...' : 'Submit Inquiry'}
-              </button>
+              </motion.button>
               
-              {status === 'success' && <p style={{ color: '#d4af37', marginTop: '1rem' }}>Inquiry sent successfully!</p>}
-              {status === 'error' && <p style={{ color: 'red', marginTop: '1rem' }}>Error sending inquiry. Please try again.</p>}
+              {status === 'success' && <p className="status-msg success">Inquiry sent successfully!</p>}
+              {status === 'error' && <p className="status-msg error">Error sending inquiry. Please try again.</p>}
             </form>
           </motion.div>
         </div>

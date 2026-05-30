@@ -1,45 +1,36 @@
 .leadership {
   background-color: var(--color-bg-dark);
   position: relative;
-  overflow: hidden;
-}
-
-.leadership::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50vw;
-  height: 100%;
-  background: radial-gradient(circle at right center, rgba(30, 87, 140, 0.1) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .leadership-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  gap: 6rem;
   align-items: center;
 }
 
 .leadership-text {
-  color: var(--color-text-muted);
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
-  line-height: 1.8;
 }
 
 .leadership-profile {
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: var(--border-radius-sm);
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.profile-image-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
 }
 
 .profile-image {
-  height: 350px;
   width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -48,42 +39,55 @@
   height: 100%;
   object-fit: cover;
   object-position: top;
-  filter: grayscale(20%);
+  filter: grayscale(40%);
+  transition: all 0.6s ease;
+}
+
+.leadership-profile:hover .profile-image img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+.image-border-accent {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  border: 1px solid rgba(197, 160, 89, 0.2);
+  pointer-events: none;
 }
 
 .profile-info {
-  padding: 2.5rem;
-  background: var(--color-bg-charcoal);
+  padding: 3rem;
+  background: var(--glass-bg);
 }
 
-.profile-info h3 {
-  font-size: 1.8rem;
-  margin-bottom: 0.2rem;
+.profile-name {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-role {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: block;
 }
 
 .profile-bio {
-  color: var(--color-text-muted);
   font-size: 0.95rem;
-  margin: 1.5rem 0;
-  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 .social-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(177, 154, 107, 0.3);
-  color: var(--color-accent-gold);
+  color: var(--color-text-muted);
   transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-  background-color: var(--color-accent-gold);
-  color: var(--color-bg-dark);
-  transform: translateY(-3px);
 }
 
 @media (max-width: 992px) {

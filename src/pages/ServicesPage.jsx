@@ -5,7 +5,7 @@ import Testimonials from '../components/Testimonials';
 const ServicesPage = () => {
   return (
     <>
-      <div style={{ height: '80px', background: 'var(--color-bg-charcoal)' }}></div>
+      <div style={{ height: '100px', background: 'var(--color-bg-dark)' }}></div>
       <CoreServices />
       <Testimonials />
     </>

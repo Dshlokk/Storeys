@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,18 +25,35 @@ const Navbar = () => {
   ];
 
   return (
-    <header className={`navbar ${isScrolled ? 'scrolled glass' : ''}`}>
+    <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         <Link to="/" className="logo">
-          <span className="logo-text gradient-gold">STOREYS</span>
-          <span className="logo-subtext">REALTY</span>
+          <div className="logo-icon">
+            <div className="logo-box"></div>
+            <div className="logo-box-accent"></div>
+          </div>
+          <div className="logo-text-wrapper">
+            <span className="logo-text gradient-gold">STOREYS</span>
+            <span className="logo-subtext">REALTY</span>
+          </div>
         </Link>
 
         <nav className="desktop-nav">
           <ul className="nav-links">
             {navLinks.map((link, idx) => (
               <li key={idx}>
-                <Link to={link.href}>{link.name}</Link>
+                <Link 
+                  to={link.href} 
+                  className={location.pathname === link.href ? 'active' : ''}
+                >
+                  {link.name}
+                  {location.pathname === link.href && (
+                    <motion.div 
+                      layoutId="nav-underline"
+                      className="nav-underline"
+                    />
+                  )}
+                </Link>
               </li>
             ))}
           </ul>
@@ -45,8 +63,9 @@ const Navbar = () => {
         <button 
           className="mobile-toggle" 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {mobileMenuOpen ? <X size={24} color="#d4af37" /> : <Menu size={24} color="#d4af37" />}
+          {mobileMenuOpen ? <X size={24} className="text-gold" /> : <Menu size={24} className="text-gold" />}
         </button>
       </div>
 
@@ -54,20 +73,29 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <motion.div 
             className="mobile-nav glass"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           >
             <ul className="mobile-nav-links">
               {navLinks.map((link, idx) => (
-                <li key={idx}>
+                <motion.li 
+                  key={idx}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                >
                   <Link to={link.href} onClick={() => setMobileMenuOpen(false)}>{link.name}</Link>
-                </li>
+                </motion.li>
               ))}
-              <li>
+              <motion.li
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+              >
                 <Link to="/contact" className="btn btn-primary" onClick={() => setMobileMenuOpen(false)}>Let's Talk</Link>
-              </li>
+              </motion.li>
             </ul>
           </motion.div>
         )}

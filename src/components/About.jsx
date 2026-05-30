@@ -1,24 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import './About.css';
 
 const About = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-
   return (
     <section id="about" className="about gradient-blue-bg">
+      <div className="corner-accent corner-bl"></div>
+      <div className="architectural-line" style={{ top: '0' }}></div>
+      
       <div className="container">
-        <div className="about-grid" ref={ref}>
+        <div className="about-grid">
           <motion.div 
             className="about-image-wrapper"
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
           >
+            <div className="corner-accent corner-tl" style={{ top: '-20px', left: '-20px' }}></div>
             <img 
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
               alt="Premium Real Estate" 
@@ -29,9 +28,10 @@ const About = () => {
           
           <motion.div 
             className="about-content"
-            initial={{ opacity: 0, x: 50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
             <h4 className="section-subtitle text-gold">About Storeys Realty</h4>
             <h2 className="section-title">
@@ -48,14 +48,22 @@ const About = () => {
             </p>
             
             <div className="about-stats">
-              <div className="stat-box glass">
+              <motion.div 
+                className="stat-box glass"
+                whileHover={{ y: -5, borderColor: 'var(--color-accent-gold)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <span className="stat-number gradient-gold">10+</span>
                 <span className="stat-label">Years Experience</span>
-              </div>
-              <div className="stat-box glass">
+              </motion.div>
+              <motion.div 
+                className="stat-box glass"
+                whileHover={{ y: -5, borderColor: 'var(--color-accent-gold)' }}
+                transition={{ duration: 0.3 }}
+              >
                 <span className="stat-number gradient-gold">₹1000Cr</span>
                 <span className="stat-label">Revenue Target</span>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

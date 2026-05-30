@@ -6,9 +6,11 @@ import './Hero.css';
 const Hero = () => {
   return (
     <section className="hero">
+      <div className="corner-accent corner-tl"></div>
+      <div className="corner-accent corner-tr"></div>
+      
       <div className="hero-video-wrapper">
         <div className="hero-overlay"></div>
-        {/* Using a premium real estate placeholder video since we don't have a local one */}
         <video 
           className="hero-video" 
           autoPlay 
@@ -22,34 +24,43 @@ const Hero = () => {
       </div>
 
       <div className="container hero-content">
-        <motion.div 
-          className="hero-text-content"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
+        <div className="hero-text-content">
           <motion.div 
-            className="hero-badge"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
-            <span className="text-gold">Strategic Growth Partners</span>
+            <span className="hero-badge-premium">
+              <span className="badge-line"></span>
+              Strategic Growth Partners
+            </span>
           </motion.div>
           
-          <h1 className="hero-title">
-            The Growth Engine Behind High-Performing <span className="gradient-gold">Real Estate Brands</span>
-          </h1>
+          <motion.h1 
+            className="hero-title"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+          >
+            The Growth Engine Behind <br />
+            <span className="gradient-gold">High-Performing</span> <br />
+            Real Estate Brands
+          </motion.h1>
           
-          <p className="hero-subtitle">
+          <motion.p 
+            className="hero-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
+          >
             Storeys Realty helps developers accelerate sales, generate qualified demand, build elite sales organizations, and unlock strategic growth opportunities.
-          </p>
+          </motion.p>
           
           <motion.div 
             className="hero-ctas"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
           >
             <a href="#contact" className="btn btn-primary">
               Schedule Strategy Call <ArrowRight size={18} style={{marginLeft: '8px'}}/>
@@ -58,18 +69,20 @@ const Hero = () => {
               Download Company Profile
             </a>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
       
       <motion.div 
         className="scroll-indicator"
         animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
       >
         <a href="#about" aria-label="Scroll down">
-          <ChevronDown size={32} color="#d4af37" />
+          <ChevronDown size={32} className="text-gold" />
         </a>
       </motion.div>
+
+      <div className="architectural-line" style={{ bottom: '0' }}></div>
     </section>
   );
 };

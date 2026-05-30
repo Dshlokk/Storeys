@@ -4,7 +4,7 @@ import Contact from '../components/Contact';
 const ContactPage = () => {
   return (
     <>
-      <div style={{ height: '80px', background: 'var(--color-bg-dark)' }}></div>
+      <div style={{ height: '100px', background: 'var(--color-bg-dark)' }}></div>
       <Contact />
     </>
   );

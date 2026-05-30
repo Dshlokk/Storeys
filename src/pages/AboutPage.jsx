@@ -5,7 +5,7 @@ import Leadership from '../components/Leadership';
 const AboutPage = () => {
   return (
     <>
-      <div style={{ height: '80px', background: 'var(--color-bg-dark)' }}></div>
+      <div style={{ height: '100px', background: 'var(--color-bg-dark)' }}></div>
       <About />
       <Leadership />
     </>

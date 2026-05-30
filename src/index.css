@@ -1,23 +1,29 @@
 :root {
-  /* Charcoal & Gold Color Palette */
-  --color-primary-blue: #232f3e;     /* Charcoal Blue */
-  --color-secondary-blue: #3b4b5c;   /* Lighter Charcoal Blue */
-  --color-accent-gold: #b19a6b;      /* Charcoal Gold */
-  --color-accent-gold-light: #d1c2a4;/* Light Charcoal Gold */
-  --color-accent-gold-dark: #8e7b56; /* Dark Charcoal Gold */
+  /* Charcoal & Gold Color Palette - Refined for Luxury Real Estate */
+  --color-primary-blue: #0a0e14;     /* Deep Obsidian Charcoal */
+  --color-secondary-blue: #161b22;   /* Deep Charcoal Blue */
+  --color-accent-gold: #c5a059;      /* Champagne Gold */
+  --color-accent-gold-light: #e0ca9e;/* Soft Gold */
+  --color-accent-gold-dark: #8c6d32; /* Rich Bronze Gold */
   
-  --color-bg-dark: #161b22;         /* Very dark charcoal */
-  --color-bg-charcoal: #1f242c;     /* Base charcoal */
+  --color-bg-dark: #05070a;         /* Deepest Black-Blue */
+  --color-bg-charcoal: #0d1117;     /* Base Slate */
   --color-bg-light: #ffffff;
-  --color-bg-offwhite: #f8f9fa;
+  --color-bg-offwhite: #f0f2f5;
   
-  --color-text-light: #f0f2f5;
-  --color-text-muted: #8b95a1;
-  --color-text-dark: #161b22;
+  --color-text-light: #e6edf3;
+  --color-text-muted: #8b949e;
+  --color-text-dark: #0d1117;
   
   /* Typography */
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
+  
+  /* Spacing & Borders */
+  --border-radius-sm: 2px;
+  --border-radius-md: 4px;
+  --glass-bg: rgba(13, 17, 23, 0.7);
+  --glass-border: rgba(197, 160, 89, 0.15);
 }
 
 * {
@@ -41,22 +47,28 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: 
+    radial-gradient(circle at 2px 2px, rgba(197, 160, 89, 0.05) 1px, transparent 0);
+  background-size: 40px 40px;
 }
 
 /* Typography Utilities */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
-h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
-h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+h1 { font-size: clamp(3rem, 7vw, 5.5rem); }
+h2 { font-size: clamp(2.2rem, 5vw, 4rem); }
+h3 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
 
 p {
-  line-height: 1.6;
+  line-height: 1.8;
   font-weight: 300;
+  letter-spacing: 0.01em;
+  color: var(--color-text-muted);
 }
 
 .text-gold {
@@ -70,14 +82,38 @@ p {
 /* Layout Utilities */
 .container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 5%;
+  padding: 0 6%;
 }
 
 section {
-  padding: 100px 0;
+  padding: 120px 0;
   position: relative;
+  overflow: hidden;
+}
+
+/* Decorative Real Estate Elements */
+.corner-accent {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-accent-gold);
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.corner-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+.corner-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+.corner-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+.corner-br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+
+.architectural-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+  height: 1px;
+  width: 100%;
+  opacity: 0.2;
 }
 
 /* Chromatic Gradients */
@@ -89,7 +125,7 @@ section {
 }
 
 .gradient-blue-bg {
-  background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-primary-blue) 100%);
+  background: radial-gradient(circle at top right, var(--color-secondary-blue), var(--color-bg-dark));
 }
 
 .gradient-gold-bg {
@@ -101,44 +137,87 @@ section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 28px;
+  padding: 16px 36px;
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 1rem;
-  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
-  border-radius: 2px;
+  border-radius: var(--border-radius-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn:hover::after {
+  left: 100%;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-accent-gold-light) 0%, var(--color-accent-gold) 50%, var(--color-accent-gold-dark) 100%);
+  background: var(--color-accent-gold);
   color: var(--color-bg-dark);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(177, 154, 107, 0.2);
+  background: var(--color-accent-gold-light);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(197, 160, 89, 0.25);
 }
 
 .btn-outline {
   background: transparent;
   color: var(--color-accent-gold);
-  border: 1px solid var(--color-accent-gold);
+  border: 1px solid var(--glass-border);
 }
 
 .btn-outline:hover {
-  background: rgba(177, 154, 107, 0.1);
-  transform: translateY(-2px);
+  background: rgba(197, 160, 89, 0.05);
+  border-color: var(--color-accent-gold);
+  transform: translateY(-3px);
 }
 
 /* Glassmorphism */
 .glass {
-  background: rgba(31, 36, 44, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.section-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.section-title {
+  margin-bottom: 60px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { Play } from 'lucide-react';
 import './Testimonials.css';
 
@@ -18,33 +17,79 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] } 
+    }
+  };
 
   return (
     <section className="testimonials gradient-blue-bg">
+      <div className="architectural-line" style={{ top: '0' }}></div>
+      <div className="corner-accent corner-tr"></div>
+      
       <div className="container">
         <div className="section-header text-center">
-          <h4 className="section-subtitle text-gold">Success Stories</h4>
-          <h2 className="section-title">Trusted by <span className="gradient-gold">Industry Leaders</span></h2>
+          <motion.h4 
+            className="section-subtitle text-gold"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Success Stories
+          </motion.h4>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Trusted by <span className="gradient-gold">Industry Leaders</span>
+          </motion.h2>
         </div>
 
-        <div className="testimonials-grid" ref={ref}>
+        <motion.div 
+          className="testimonials-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {testimonials.map((test, idx) => (
             <motion.div 
               key={idx}
               className="testimonial-card glass"
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: idx * 0.2 }}
+              variants={itemVariants}
+              whileHover={{ 
+                y: -10, 
+                backgroundColor: 'rgba(197, 160, 89, 0.03)',
+                borderColor: 'rgba(197, 160, 89, 0.4)'
+              }}
             >
               <div className="video-thumbnail">
                 <img src={test.image} alt="Testimonial" />
-                <div className="play-button">
-                  <Play fill="#07111a" color="#07111a" size={24} />
-                </div>
+                <motion.div 
+                  className="play-button"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Play fill="var(--color-bg-dark)" color="var(--color-bg-dark)" size={20} />
+                </motion.div>
+                <div className="video-overlay"></div>
               </div>
               <div className="testimonial-content">
                 <p className="quote">"{test.quote}"</p>
@@ -54,8 +99,9 @@ const Testimonials = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
+      <div className="architectural-line" style={{ bottom: '0' }}></div>
     </section>
   );
 };

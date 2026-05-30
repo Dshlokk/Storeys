@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { ArrowRight } from 'lucide-react';
 import './SuccessFramework.css';
 
@@ -15,27 +14,64 @@ const steps = [
 ];
 
 const SuccessFramework = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] } 
+    }
+  };
 
   return (
     <section id="framework" className="framework">
+      <div className="architectural-line" style={{ top: '0' }}></div>
+      <div className="corner-accent corner-br"></div>
+      
       <div className="container">
         <div className="section-header text-center">
-          <h4 className="section-subtitle text-gold">The Process</h4>
-          <h2 className="section-title">Success <span className="gradient-gold">Framework</span></h2>
+          <motion.h4 
+            className="section-subtitle text-gold"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            The Process
+          </motion.h4>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Success <span className="gradient-gold">Framework</span>
+          </motion.h2>
         </div>
 
-        <div className="timeline-container" ref={ref}>
+        <motion.div 
+          className="timeline-container"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {steps.map((step, idx) => (
             <React.Fragment key={idx}>
               <motion.div 
                 className="timeline-step glass"
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                variants={itemVariants}
+                whileHover={{ y: -5, borderColor: 'var(--color-accent-gold)' }}
               >
                 <div className="step-number gradient-gold">0{idx + 1}</div>
                 <h3 className="step-name">{step}</h3>
@@ -45,15 +81,17 @@ const SuccessFramework = () => {
                 <motion.div 
                   className="timeline-connector"
                   initial={{ opacity: 0, scaleX: 0 }}
-                  animate={inView ? { opacity: 1, scaleX: 1 } : {}}
-                  transition={{ duration: 0.4, delay: (idx * 0.15) + 0.1 }}
+                  whileInView={{ opacity: 1, scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: (idx * 0.1) + 0.3 }}
                 >
-                  <ArrowRight size={24} className="text-gold" />
+                  <div className="connector-line"></div>
+                  <ArrowRight size={20} className="text-gold" />
                 </motion.div>
               )}
             </React.Fragment>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
